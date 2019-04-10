@@ -13,9 +13,9 @@ namespace HighOrLow
         // 1 (Ess) - 14 (Ess)
         public int värde;
         // Returnerar kortets värde
-        public int ReturnernaVärde(Card card)
+        public int ReturnernaVärde()
         {
-            return card.värde;
+            return värde;
         }
     }
 }

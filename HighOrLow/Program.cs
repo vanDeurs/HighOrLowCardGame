@@ -13,7 +13,7 @@ namespace HighOrLow
             IList<Card> DeckOfCards = InitieraKortlek();
             foreach (var card in DeckOfCards)
             {
-                Console.WriteLine(card.färg + " " + card.värde);
+                Console.WriteLine(card.ReturnernaVärde());
             }
             Console.ReadKey();
         }
