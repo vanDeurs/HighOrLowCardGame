@@ -11,12 +11,13 @@ namespace HighOrLow
         static void Main(string[] args)
         {
             IList<Card> deckOfCards = InitieraKortlek();
-            IList<Card> randomCards = Generera13RandomKort(deckOfCards);
 
             while (true)
             {
                 try
                 {
+                   // Generera 13 random kort från kortleke 
+                   IList<Card> randomCards = Generera13RandomKort(deckOfCards);
                    StartGameLoop(randomCards);
                
                 }
@@ -26,6 +27,7 @@ namespace HighOrLow
                     Console.WriteLine("Vill du köra igen eller avsluta?");
                     Console.WriteLine("1. Kör igen");
                     Console.WriteLine("2. Avsluta");
+
                 }
             }
         }
@@ -41,6 +43,7 @@ namespace HighOrLow
                 {
                     if (i == j || i < j)
                     {
+                        // TODO: Avgör om kort är en färg
                         Console.Write(" [" + randomCards[i].värde + "] ");
                     }
                     else
@@ -53,6 +56,7 @@ namespace HighOrLow
                 switch (spelarensVal)
                 {
                     case 1:
+                        // Om nästa kort i listen är av ett högre värde än det nuvarande
                         if (randomCards[j + 1].värde > randomCards[j].värde)
                         {
                             Console.WriteLine("Rätt!");
@@ -60,6 +64,7 @@ namespace HighOrLow
                         }
                         Console.WriteLine("Fel! Kortet som vänds är {0}", randomCards[j + 1].färg + " " + randomCards[j + 1].värde);
                         throw new Exception("");
+                    // Om nästa kort i listen är av ett mindre värde än det nuvarande
                     case 2:
                         if (randomCards[j + 1].värde < randomCards[j].värde)
                         {
