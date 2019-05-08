@@ -8,14 +8,9 @@ namespace HighOrLow
 {
     class Card
     {
-        // Hjärter, Spader, Ruter, Klöver
-        public string färg;
-        // 1 (Ess) - 14 (Ess)
-        public int värde;
-        // Returnerar kortets värde
-        public int ReturnernaVärde()
-        {
-            return värde;
-        }
+        public enum Färger {hjärter, spader, ruter, klöver};
+        public enum Värden {ess = 1, knäckt = 11, dam = 12, kung = 13};
+        public string Färg;
+        public int Värde;
     }
 }

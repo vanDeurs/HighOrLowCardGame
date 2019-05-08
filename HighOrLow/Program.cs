@@ -11,15 +11,14 @@ namespace HighOrLow
         static void Main(string[] args)
         {
             IList<Card> deckOfCards = InitieraKortlek();
+            IList<Card> randomCards = Generera13RandomKort(deckOfCards);
 
             while (true)
             {
                 try
                 {
                    // Generera 13 random kort från kortleke 
-                   IList<Card> randomCards = Generera13RandomKort(deckOfCards);
                    StartGameLoop(randomCards);
-               
                 }
                 catch (Exception error)
                 {
@@ -27,6 +26,11 @@ namespace HighOrLow
                     Console.WriteLine("Vill du köra igen eller avsluta?");
                     Console.WriteLine("1. Kör igen");
                     Console.WriteLine("2. Avsluta");
+
+                    ConsoleKeyInfo svar = Console.ReadKey(true);
+                    string svarString = svar.KeyChar.ToString();
+                    int svarInt = int.Parse(svarString);
+
 
                 }
             }
@@ -44,7 +48,7 @@ namespace HighOrLow
                     if (i == j || i < j)
                     {
                         // TODO: Avgör om kort är en färg
-                        Console.Write(" [" + randomCards[i].värde + "] ");
+                        Console.Write(" [" + randomCards[i].Färg + " " + randomCards[i].Värde + "] ");
                     }
                     else
                     {
@@ -57,24 +61,24 @@ namespace HighOrLow
                 {
                     case 1:
                         // Om nästa kort i listen är av ett högre värde än det nuvarande
-                        if (randomCards[j + 1].värde > randomCards[j].värde)
+                        if (randomCards[j].Värde == 1 || randomCards[j + 1].Värde > randomCards[j].Värde)
                         {
                             Console.WriteLine("Rätt!");
                             break;
                         }
-                        Console.WriteLine("Fel! Kortet som vänds är {0}", randomCards[j + 1].färg + " " + randomCards[j + 1].värde);
+                        Console.WriteLine("Fel! Kortet som vänds är {0}", randomCards[j + 1].Färg + " " + randomCards[j + 1].Värde);
                         throw new Exception("");
                     // Om nästa kort i listen är av ett mindre värde än det nuvarande
                     case 2:
-                        if (randomCards[j + 1].värde < randomCards[j].värde)
+                        if (randomCards[j + 1].Värde < randomCards[j].Värde)
                         {
                             Console.WriteLine("Yes, du har rätt!");
                             break;
                         }
-                        Console.WriteLine("Fel! Kortet som vänds är {0}", randomCards[j + 1].färg + " " + randomCards[j + 1].värde);
+                        Console.WriteLine("Fel! Kortet som vänds är {0}", randomCards[j + 1].Färg + " " + randomCards[j + 1].Värde);
                         throw new Exception("");
                     default:
-                        Console.WriteLine("Fel! Kortet som vänds är {0}", randomCards[j + 1].färg + " " + randomCards[j + 1].värde);
+                        Console.WriteLine("Fel! Kortet som vänds är {0}", randomCards[j + 1].Färg + " " + randomCards[j + 1].Värde);
                         throw new Exception("");
                 }
 
@@ -89,7 +93,7 @@ namespace HighOrLow
                 try
                 {
                     Console.WriteLine("");
-                    Console.WriteLine("Kortet som vänds är {0}", kort.färg + " " + kort.värde);
+                    Console.WriteLine("Kortet som vänds är {0}", kort.Färg + " " + kort.Värde);
                     Console.WriteLine("1. Högre");
                     Console.WriteLine("2. Lägre");
 
@@ -118,23 +122,23 @@ namespace HighOrLow
         static IList<Card> InitieraKortlek()
         {
             IList<Card> deckOfCards = new List<Card>() { };
-            for (int i = 0; i <= 4; i++)
+            for (int i = 0; i < 4; i++)
             {
-                for (int j = 0; j <= 12; j++)
+                for (int j = 0; j < 13; j++)
                 {
                     switch (i)
                     {
                         case 0:
-                            deckOfCards.Add(new Card() { färg = "hjärter", värde = (j + 1) });
+                            deckOfCards.Add(new Card() { Färg = "hjärter", Värde = (j + 1) });
                             break;
                         case 1:
-                            deckOfCards.Add(new Card() { färg = "ruter", värde = (j + 1) });
+                            deckOfCards.Add(new Card() { Färg = "ruter", Värde = (j + 1) });
                             break;
                         case 2:
-                            deckOfCards.Add(new Card() { färg = "spader", värde = (j + 1) });
+                            deckOfCards.Add(new Card() { Färg = "spader", Värde = (j + 1) });
                             break;
                         case 3:
-                            deckOfCards.Add(new Card() { färg = "klöver", värde = (j + 1) });
+                            deckOfCards.Add(new Card() { Färg = "klöver", Värde = (j + 1) });
                             break;
                     }
                
