@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HighOrLow
 {
+    // TODO: Enum för färger
     class Program
     {
         static void Main(string[] args)
@@ -27,11 +28,22 @@ namespace HighOrLow
                     Console.WriteLine("1. Kör igen");
                     Console.WriteLine("2. Avsluta");
 
-                    ConsoleKeyInfo svar = Console.ReadKey(true);
-                    string svarString = svar.KeyChar.ToString();
-                    int svarInt = int.Parse(svarString);
+                    while (true)
+                    {
+                        try
+                        {
+                            ConsoleKeyInfo svar = Console.ReadKey(true);
+                            string svarString = svar.KeyChar.ToString();
+                            int svarInt = int.Parse(svarString);
+                            Console.WriteLine(svarInt);
+                        }
+                        catch (Exception error2)
+                        {
+                            Console.WriteLine(error2.Message);
+                            Console.WriteLine("Felaktig input.");
+                        }
 
-
+                    }
                 }
             }
         }
@@ -41,6 +53,7 @@ namespace HighOrLow
                 "läggs ut med baksidan upp, sen vänds det första kortet. Ditt jobb är att avgöra om nästa kort är högre eller " +
                 "lägre tills alla 13 kort är passerade. Klarar du alla gissningar vinner du. Gissar du fel förlorar du. Ess " +
                 "fungerar som trumf d v s det är både högst och lägst. Du förlorar dock om det blir par. Lycka till!");
+            Console.WriteLine("");
             for (int j = 0; j < 13; j++)
             {
                 for (int i = 0; i < 13; i++)
@@ -48,37 +61,39 @@ namespace HighOrLow
                     if (i == j || i < j)
                     {
                         // TODO: Avgör om kort är en färg
-                        Console.Write(" [" + randomCards[i].Färg + " " + randomCards[i].Värde + "] ");
+                        Console.Write(" [" + (Färger)randomCards[i].färg + " " + (Värden)randomCards[i].värde + "] ");
                     }
                     else
                     {
                         Console.Write(" [X] ");
                     }
-
                 }
+                Console.WriteLine("");
                 int spelarensVal = PlayTurn(randomCards[j]);
                 switch (spelarensVal)
                 {
                     case 1:
                         // Om nästa kort i listen är av ett högre värde än det nuvarande
-                        if (randomCards[j].Värde == 1 || randomCards[j + 1].Värde > randomCards[j].Värde)
+                        if (randomCards[j].värde == 1 || randomCards[j + 1].värde > randomCards[j].värde)
                         {
+                            Console.WriteLine("");
                             Console.WriteLine("Rätt!");
+                            Console.WriteLine("");
                             break;
                         }
-                        Console.WriteLine("Fel! Kortet som vänds är {0}", randomCards[j + 1].Färg + " " + randomCards[j + 1].Värde);
+                        Console.WriteLine("Fel! Kortet som vänds är {0}", (Färger)randomCards[j+1].färg + " " + (Värden)randomCards[j+1].värde);
                         throw new Exception("");
                     // Om nästa kort i listen är av ett mindre värde än det nuvarande
                     case 2:
-                        if (randomCards[j + 1].Värde < randomCards[j].Värde)
+                        if (randomCards[j + 1].värde < randomCards[j].värde)
                         {
                             Console.WriteLine("Yes, du har rätt!");
                             break;
                         }
-                        Console.WriteLine("Fel! Kortet som vänds är {0}", randomCards[j + 1].Färg + " " + randomCards[j + 1].Värde);
+                        Console.WriteLine("Fel! Kortet som vänds är {0}", (Färger)randomCards[j + 1].färg + " " + (Värden)randomCards[j + 1].värde);
                         throw new Exception("");
                     default:
-                        Console.WriteLine("Fel! Kortet som vänds är {0}", randomCards[j + 1].Färg + " " + randomCards[j + 1].Värde);
+                        Console.WriteLine("Fel! Kortet som vänds är {0}", (Färger)randomCards[j + 1].färg + " " + (Värden)randomCards[j + 1].värde);
                         throw new Exception("");
                 }
 
@@ -93,7 +108,8 @@ namespace HighOrLow
                 try
                 {
                     Console.WriteLine("");
-                    Console.WriteLine("Kortet som vänds är {0}", kort.Färg + " " + kort.Värde);
+                    Console.WriteLine(" Kortet som vänds är {0}", (Färger)kort.färg + " " + (Värden)kort.värde);
+                    Console.WriteLine("");
                     Console.WriteLine("1. Högre");
                     Console.WriteLine("2. Lägre");
 
@@ -126,22 +142,7 @@ namespace HighOrLow
             {
                 for (int j = 0; j < 13; j++)
                 {
-                    switch (i)
-                    {
-                        case 0:
-                            deckOfCards.Add(new Card() { Färg = "hjärter", Värde = (j + 1) });
-                            break;
-                        case 1:
-                            deckOfCards.Add(new Card() { Färg = "ruter", Värde = (j + 1) });
-                            break;
-                        case 2:
-                            deckOfCards.Add(new Card() { Färg = "spader", Värde = (j + 1) });
-                            break;
-                        case 3:
-                            deckOfCards.Add(new Card() { Färg = "klöver", Värde = (j + 1) });
-                            break;
-                    }
-               
+                    deckOfCards.Add(new Card() { färg = i, värde = (j + 1) });
                 }
             }
             return deckOfCards;
