@@ -88,7 +88,7 @@ namespace HighOrLow
                 }
                 // Kolla om det var det sista kortet
                 // Isåfall har spelaren vunnit!
-                if (j == 1)
+                if (j == 12)
                 {
                     Console.WriteLine("");
                     Console.WriteLine("*****************************");
