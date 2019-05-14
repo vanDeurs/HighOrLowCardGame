@@ -86,7 +86,16 @@ namespace HighOrLow
                         Console.Write(" [X] ");
                     }
                 }
-                Console.WriteLine("");
+                // Kolla om det var det sista kortet
+                // Isåfall har spelaren vunnit!
+                if (j == 1)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("*****************************");
+                    Console.WriteLine("Grattis! Du har vunnit!");
+                    Console.WriteLine("*****************************");
+                    throw new Exception("");
+                }
 
                 // Här får spelaren välja högre eller lägre
                 int spelarensVal = PlayTurn(randomCards[j]);
@@ -116,6 +125,8 @@ namespace HighOrLow
                 Console.WriteLine("");
                 Console.WriteLine(" Rätt!");
                 Console.WriteLine("");
+
+
             }
         }
 
